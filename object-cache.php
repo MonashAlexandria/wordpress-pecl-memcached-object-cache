@@ -1535,7 +1535,8 @@ class WP_Object_Cache {
 		// Merging data from cache server and keys
                 // We cannot simply do a 'array_combine' on the returned $data with $keys since in a multi nodes environment, it might not return the data in order as the order of the keys passed in.
                 // For example: keys = array("a", "b", "c"), data returned = array("a" => "valueA", "c" => "valueC", "b" => "valueB")
-                // An array_combine would return array("a" => "valueA", "b" => "valueC", "c" => "valueB") 
+                // An array_combine would return array("a" => "valueA", "b" => "valueC", "c" => "valueB")
+                // Or could lead to a warning from array_combine in the case where one node has evicted some of the values and hence $keys and $data would be of different lengths. 
                 // Hence, it is important to get the correct value for a specific key. 
 		$retData = array();
 		foreach ( $keys as $optionKey ) {
